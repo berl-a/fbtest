@@ -30,7 +30,7 @@ public class Main {
         GSON = new Gson();
         sRandom = new Random();
         sAccessToken = System.getenv("ACCESS_TOKEN");
-        sValidationToken = "test1";
+        sValidationToken = "validation_token";
     }
 
     public static void main(String[] args) {
