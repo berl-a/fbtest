@@ -30,21 +30,21 @@ public class Main {
         GSON = new Gson();
         sRandom = new Random();
         sAccessToken = System.getenv("ACCESS_TOKEN");
-        sValidationToken = "validation_token";
+        sValidationToken = "test1";
     }
 
     public static void main(String[] args) {
 
         port(Integer.valueOf(System.getenv("PORT")));
 
-        get("/webhook", (request, response) -> {
+        get("/", (request, response) -> {
             if (request.queryMap("hub.verify_token").value().equals(sValidationToken)) {
                 return request.queryMap("hub.challenge").value();
             }
             return "Error, wrong validation token MAC";
         });
 
-        post("/webhook", (request, response) -> {
+        post("/", (request, response) -> {
             ReceivedMessage receivedMessage = GSON.fromJson(request.body(), ReceivedMessage.class);
             List<Messaging> messagings = receivedMessage.entry.get(0).messaging;
             for (Messaging messaging : messagings) {
